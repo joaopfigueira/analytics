@@ -54,9 +54,7 @@ use Analytics\Analytics;
  */
 class Entradas extends Analytics implements FetchInterface, DatesInterface
 {
-
-	private $startDate;
-	private $endDate;
+	use DatesTrait;
 
 	/**
 	 * @return array $result
@@ -95,25 +93,5 @@ class Entradas extends Analytics implements FetchInterface, DatesInterface
 							'filter_sort_column'=>'entry_nb_visits',
 						));
 		return $result;		
-	}
-
-	/**
-	 * @param string $startDate 	Should be: YYYY-MM-DD
-	 * @return object $this
-	 */
-	public function startDate($startDate)
-	{
-		$this->startDate = $startDate;
-		return $this;
-	}
-
-	/**
-	 * @param string $endDate		Should be: YYYY-MM-DD
-	 * @return object $this
-	 */
-	public function endDate($endDate)
-	{
-		$this->endDate = $endDate;
-		return $this;
 	}
 }

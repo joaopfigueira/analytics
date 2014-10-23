@@ -9,6 +9,9 @@
 			"homepage": "http://joaofigueira.eu"
 		}
 	],
+	"require": {
+    	"php": ">=5.4.0"
+    },
 	"autoload": {
 		"psr-4": {
 			"Analytics\\": "src/Analytics"

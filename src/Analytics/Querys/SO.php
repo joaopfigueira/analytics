@@ -54,10 +54,8 @@ use Analytics\Analytics;
  */
 class SO extends Analytics implements FetchInterface, DatesInterface
 {
-
-	private $startDate;
-	private $endDate;
-
+	use DatesTrait;
+	
 	/**
 	 * @return array $result
 	 */
@@ -94,25 +92,5 @@ class SO extends Analytics implements FetchInterface, DatesInterface
 							'language'=>'pt'
 						));
 		return $result;		
-	}
-
-	/**
-	 * @param string $startDate 	Should be: YYYY-MM-DD
-	 * @return object $this
-	 */
-	public function startDate($startDate)
-	{
-		$this->startDate = $startDate;
-		return $this;
-	}
-
-	/**
-	 * @param string $endDate		Should be: YYYY-MM-DD
-	 * @return object $this
-	 */
-	public function endDate($endDate)
-	{
-		$this->endDate = $endDate;
-		return $this;
 	}
 }

@@ -41,10 +41,8 @@
  * @license    	http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License 
  */
 
-use Analytics\Analytics;
-
 /**
- * Query by visit Hours.
+ * Trait for inputing starting and ending dates.
  *
  * @package    	Analytics
  * @subpackage 	Querys 
@@ -52,43 +50,29 @@ use Analytics\Analytics;
  * @copyright  	2014 João Paulo Figueira <joao.figueira@webnation.pt>
  * @license    	http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License 
  */
-class Horario extends Analytics implements FetchInterface, DatesInterface
+
+trait DatesTrait
 {
-	use DatesTrait;
+	private $startDate;
+	private $endDate;
 
 	/**
-	 * @return array $result
+	 * @param string $startDate 	Should be: YYYY-MM-DD
+	 * @return object $this
 	 */
-	public function fetchData()
+	public function startDate($startDate)
 	{
-		$result = $this ->period('range')
-						->date($this->startDate, $this->endDate)
-						->method('VisitTime.getVisitInformationPerLocalTime')
-						->get(array(
-							'filter_limit'=>24,
-							'expanded'=>1,
-						));
-		return $result;
+		$this->startDate = $startDate;
+		return $this;
 	}
 
 	/**
-	 * @return URL image/PNG $result
+	 * @param string $endDate		Should be: YYYY-MM-DD
+	 * @return object $this
 	 */
-	public function fetchGraph()
+	public function endDate($endDate)
 	{
-		$result = $this ->period('range')
-						->date($this->startDate, $this->endDate)
-						->method('ImageGraph.get')
-						->getUrl(array(
-							'apiModule'=>'VisitTime',
-							'apiAction'=>'getVisitInformationPerLocalTime',
-							'filter_limit'=>24,
-							'expanded'=>1,							
-							'graphType'=>'verticalBar',
-							'width'=>750,
-							'height'=>350,
-							'language'=>'pt',
-						));
-		return $result;		
-	}
+		$this->endDate = $endDate;
+		return $this;
+	}	
 }

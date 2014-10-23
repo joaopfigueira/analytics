@@ -54,31 +54,11 @@ use Analytics\Analytics;
  */
 class Browsers extends Analytics implements FetchInterface, DatesInterface
 {
-	private $startDate 		= null;
-	private	$endDate 		= null;
+	use DatesTrait;
+
 	protected $filter_limit = 5;
 	protected $expanded 	= 1;
 	protected $filter_sort_column = 'nb_visits';
-
-	/**
-	 * @param string $startDate 	Should be: YYYY-MM-DD
-	 * @return object $this
-	 */
-	public function startDate($date)
-	{
-		$this->startDate = $date;
-		return $this;
-	}
-
-	/**
-	 * @param string $endDate		Should be: YYYY-MM-DD
-	 * @return object $this
-	 */
-	public function endDate($date)
-	{
-		$this->endDate = $date;
-		return $this;
-	}
 
 	/**
 	 * @return array $result
