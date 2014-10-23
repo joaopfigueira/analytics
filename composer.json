@@ -1,6 +1,7 @@
 {
 	"name": "JoaoFigueira/Analytics",
 	"description": "Retrieve analytics data",
+	"license": "BSD-3-Clause",
 	"authors": [
 		{
 			"name": "João Paulo Figueira",
