@@ -1,0 +1,16 @@
+{
+	"name": "JoaoFigueira/Analytics",
+	"description": "Retrieve analytics data",
+	"authors": [
+		{
+			"name": "João Paulo Figueira",
+			"email": "joao.figueira@webnation.pt",
+			"homepage": "http://joaofigueira.eu"
+		}
+	],
+	"autoload": {
+		"psr-4": {
+			"Analytics\\": "src/Analytics"
+		}
+	}
+}
