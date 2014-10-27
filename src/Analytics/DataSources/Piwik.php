@@ -76,9 +76,6 @@ class Piwik implements DataSourcesInterface
 
 		$request = $url . http_build_query($scope);
 
-		/*$fetched = file_get_contents($request);
-		$content = $this->is_serialized($fetched) ? unserialize($fetched) : $fetched;*/
-
 		return $request;
 	}	
 

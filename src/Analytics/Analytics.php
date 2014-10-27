@@ -87,6 +87,7 @@ abstract class Analytics
 	 */
 	public function period($period)
 	{
+		$period = strtolower($period); //corrects a stupid bug
 		$acceptable = array('day', 'week', 'month', 'year', 'range');
 		if (in_array($period, $acceptable)){
 			$this->period = $period;
@@ -117,6 +118,7 @@ abstract class Analytics
 	 */
 	public function format($format)
 	{
+		$format = strtoupper($format); //bugfix
 		$acceptable = array('XML', 'JSON', 'CSV', 'TSV', 'HTML', 'PHP', 'RSS');
 		if (in_array($format, $acceptable))
 		{
