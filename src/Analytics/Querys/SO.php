@@ -57,25 +57,28 @@ class SO extends Analytics implements FetchInterface, DatesInterface
 	use DatesTrait;
 	
 	/**
+	 * @param array $extendedOptions
+	 *	
 	 * @return array $result
 	 */
-	public function fetchData()
+	public function fetchData($extendedOptions=array())
 	{
+		$baseOptions = array('filter_limit'=>5, 'expanded'=>1, 'filter_sort_column'=>'nb_visits');
+
 		$result = $this ->period('range')
 						->date($this->startDate, $this->endDate)
 						->method('UserSettings.getOS')
-						->get(array(
-							'filter_limit'=>5,
-							'expanded'=>1,
-							'filter_sort_column'=>'nb_visits'
-						));
+						->get(array_merge($baseOptions, $extendedOptions));
 		return $result;
 	}
 
 	/**
-	 * @return URL image/PNG $result
+	 * @param integer $width
+	 * @param integer $height 
+	 *
+	 * @return image/PNG URL $result
 	 */
-	public function fetchGraph()
+	public function fetchGraph($width=750, $height=350)
 	{
 		$result = $this ->period('range')
 						->date($this->startDate, $this->endDate)
@@ -87,8 +90,8 @@ class SO extends Analytics implements FetchInterface, DatesInterface
 							'expanded'=>1,							
 							'graphType'=>'horizontalBar',
 							'filter_sort_column'=>'nb_visits',
-							'width'=>750,
-							'height'=>350,
+							'width'=>$width,
+							'height'=>$height,
 							'language'=>'pt'
 						));
 		return $result;		

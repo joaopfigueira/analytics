@@ -58,10 +58,14 @@ class VisitsThisMonthByDay extends Analytics implements FetchInterface
 	/**
 	 * Fetches the result of the Query
 	 *
+	 * @param array $extendedOptions
+	 *
 	 * @return array $result
 	 */
-	public function fetchData()
+	public function fetchData($extendedOptions=array())
 	{
+		$baseOptions = array();
+
 	    $this->dateTime	= new \DateTime(date('Y-m-d'));
 
 	    $endDate 		= date('Y-m-d');
@@ -69,15 +73,18 @@ class VisitsThisMonthByDay extends Analytics implements FetchInterface
 		$result = $this->period('day')
 						->date($this->startDate(), $this->endDate())
 						->method('VisitsSummary.get')
-						->get();
+						->get(array_merge($baseOptions, $extendedOptions));
 
 		return $result;
 	}
 
 	/**
+	 * @param integer $width
+	 * @param integer $height 
+	 *
 	 * @return image/PNG URL $result
 	 */
-	public function fetchGraph()
+	public function fetchGraph($width=750, $height=350)
 	{
 		$result = $this ->period('day')
 						->date($this->startDate(), $this->endDate())
@@ -86,8 +93,8 @@ class VisitsThisMonthByDay extends Analytics implements FetchInterface
 							'apiModule'=>'VisitsSummary',
 							'apiAction'=>'get',
 							'graphType'=>'verticalBar',
-							'width'=>750,
-							'height'=>350,
+							'width'=>$width,
+							'height'=>$height,
 							'language'=>'pt'
 						));
 		return $result;		

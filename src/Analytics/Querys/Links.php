@@ -57,25 +57,28 @@ class Links extends Analytics implements FetchInterface, DatesInterface
 	use DatesTrait;
 
 	/**
+	 * @param array $extendedOptions
+	 *	
 	 * @return array $result
 	 */
-	public function fetchData()
+	public function fetchData($extendedOptions=array())
 	{
+		$baseOptions = array('filter_limit'=>100, 'expanded'=>1, 'flat'=>1);
+
 		$result = $this ->period('range')
 						->date($this->startDate, $this->endDate)
 						->method('Actions.getOutlinks')
-						->get(array(
-							'filter_limit'=>100,
-							'expanded'=>1,
-							'flat'=>1,
-						));
+						->get(array_merge($baseOptions, $extendedOptions));
 		return $result;
 	}
 
 	/**
+	 * @param integer $width
+	 * @param integer $height 
+	 *	
 	 * @return URL image/PNG $result
 	 */
-	public function fetchGraph()
+	public function fetchGraph($width=750, $height=350)
 	{
 		$result = $this ->period('range')
 						->date($this->startDate, $this->endDate)
@@ -86,8 +89,8 @@ class Links extends Analytics implements FetchInterface, DatesInterface
 							'filter_limit'=>100,
 							'expanded'=>1,					
 							'graphType'=>'3dPie',
-							'width'=>750,
-							'height'=>350,
+							'width'=>$width,
+							'height'=>$height,
 							'language'=>'pt',
 						));
 		return $result;		

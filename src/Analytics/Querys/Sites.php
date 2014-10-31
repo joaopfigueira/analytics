@@ -57,25 +57,28 @@ class Sites extends Analytics implements FetchInterface, DatesInterface
 	use DatesTrait;
 
 	/**
+	 * @param array $extendedOptions
+	 *
 	 * @return array $result
 	 */
-	public function fetchData()
+	public function fetchData($extendedOptions=array())
 	{
+		$baseOptions = array('filter_limit'=>25, 'expanded'=>0, 'language'=>'pt');
+
 		$result = $this ->period('range')
 						->date($this->startDate, $this->endDate)
 						->method('Referrers.getWebsites')
-						->get(array(
-							'filter_limit'=>25,
-							'expanded'=>0,
-							'language'=>'pt',
-						));
+						->get(array_merge($baseOptions, $extendedOptions));
 		return $result;
 	}
 
 	/**
+	 * @param integer $width
+	 * @param integer $height 
+	 *	
 	 * @return URL image/PNG $result
 	 */
-	public function fetchGraph()
+	public function fetchGraph($width=750, $height=350)
 	{
 		$result = $this ->period('range')
 						->date($this->startDate, $this->endDate)
@@ -86,8 +89,8 @@ class Sites extends Analytics implements FetchInterface, DatesInterface
 							'filter_limit'=>25,
 							'expanded'=>0,					
 							'graphType'=>'horizontalBar',
-							'width'=>750,
-							'height'=>350,
+							'width'=>$width,
+							'height'=>$height,
 							'language'=>'pt',
 						));
 		return $result;		
