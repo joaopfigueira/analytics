@@ -52,8 +52,10 @@ use Analytics\Analytics;
  * @copyright  	2014 João Paulo Figueira <joao.figueira@webnation.pt>
  * @license    	http://www.opensource.org/licenses/BSD-3-Clause  The BSD 3-Clause License 
  */
-class Evolucao extends Analytics implements FetchInterface
+class Evolucao extends Analytics implements FetchInterface, DatesInterface
 {
+	use DatesTrait;
+
 	/**
 	 * @param array $extendedOptions
 	 *	
@@ -64,7 +66,7 @@ class Evolucao extends Analytics implements FetchInterface
 		$baseOptions = array('filter_limit'=>100, 'expanded'=>1);
 
 		$result = $this ->period('day')
-						->date($this->startDate(), $this->endDate())
+						->date($this->startDate, $this->endDate)
 						->method('API.get')
 						->get(array_merge($baseOptions, $extendedOptions));
 		return $result;
@@ -79,7 +81,7 @@ class Evolucao extends Analytics implements FetchInterface
 	public function fetchGraph($width=750, $height=350)
 	{
 		$result = $this ->period('day')
-						->date($this->startDate(), $this->endDate())
+						->date($this->startDate, $this->endDate)
 						->method('ImageGraph.get')
 						->getUrl(array(
 							'apiModule'=>'API',
@@ -95,18 +97,18 @@ class Evolucao extends Analytics implements FetchInterface
 	/**
 	 * @return today - 1 month
 	 */
-	public function startDate()
+/*	public function startDate()
 	{
 		$dateTime	= new \DateTime(date('Y-m-d'));
 		return $dateTime->modify('-1 month')->format('Y-m-d');
 	}
-
+*/
 	/**
 	 * @return today - 1 day
 	 */
-	public function endDate()
+/*	public function endDate()
 	{
 		$dateTime	= new \DateTime(date('Y-m-d'));
 		return $dateTime->modify('-1 day')->format('Y-m-d');
-	}
+	}*/
 }
