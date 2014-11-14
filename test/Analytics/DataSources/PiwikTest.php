@@ -2,6 +2,10 @@
 
 class PiwikTest extends PHPUnit_Framework_TestCase
 {
+	protected $url = 'http://www.anywebsite.com';
+	protected $token_auth = '123456789';
+	protected $idSite = 10;
+
 	/*
 	* Test if getUrl() returns a URL as expected
 	*
@@ -9,28 +13,11 @@ class PiwikTest extends PHPUnit_Framework_TestCase
 	*/
 	public function testGetUrlreturnsExpectedUrl()
 	{
-		$scope = array ('url'=>'http://www.anywebsite.com', 'scopeone'=>'one', 'scopetwo'=>'two', 'scopethree'=>'three');
+		$scope = array ('scopeone'=>'one', 'scopetwo'=>'two', 'scopethree'=>'three');
 
-		$piwik 		= new \Analytics\DataSources\Piwik;
+		$piwik 		= new \Analytics\DataSources\Piwik($this->url, $this->token_auth, $this->idSite);
 		$result 	= $piwik->getUrl($scope);
-		$expected 	= "http://www.anywebsite.com/?scopeone=one&scopetwo=two&scopethree=three";
-
-		$this->assertEquals($result, $expected);
-	}
-
-	/*
-	* Test if get() returns the content of the URL
-	*
-	* @test
-	*/
-	public function testGetReturnsTheCorrectHtml()
-	{
-		$scope = array ('url'=>'http://getbootstrap.com/examples/starter-template');
-
-		$piwik 		= new \Analytics\DataSources\Piwik;
-		$result 	= $piwik->get($scope);
-
-		$expected = file_get_contents('http://getbootstrap.com/examples/starter-template');
+		$expected 	= "http://www.anywebsite.com/?token_auth=123456789&idSite=10&scopeone=one&scopetwo=two&scopethree=three";
 
 		$this->assertEquals($result, $expected);
 	}

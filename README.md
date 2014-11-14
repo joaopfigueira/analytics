@@ -9,7 +9,7 @@ Installation via composer
 -------------------------------
     {
         require: {
-            "joaofigueira/analytics": "1.*"
+            "joaofigueira/analytics": "2.*"
         }
     }
 
@@ -20,7 +20,9 @@ Usage example
 use Analytics\DataSources\Piwik;
 use Analytics\Querys\Browsers as Analytics; //check out the Querys folder, lots of ready to use Querys in there!
 
-$result = new Analytics(new Piwik, $url, $token, $idSite); //engine(Piwik), url, token, idSite
+$auth = new Piwik($url, $token, $idSite); //engine(Piwik), url, token, idSite
+
+$result = new Analytics($auth); 
 $result ->startDate('2014-10-01')
 		->endDate('2014-10-15');
 

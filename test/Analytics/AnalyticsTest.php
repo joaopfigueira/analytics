@@ -13,18 +13,15 @@ class AnalyticsTest extends PHPUnit_Framework_TestCase
 	{
 		$apiResponse = array(array('nb_visits'=>10, 'nb_hits'=>20), array('nb_visits'=>20, 'nb_hits'=>30));
 
-		$url = 'http://www.somesite.com/';
-		$token_auth = 1234;
-		$idSite = 1;
-
         $driver = $this->getMockBuilder('\Analytics\DataSources\Piwik')
+        	->disableOriginalConstructor()
             ->getMock();
 
 		$driver->expects($this->once())
 		    ->method('get')
 		    ->will($this->returnValue($apiResponse));   
 
-		$analytics = new Analytics($driver, $url, $token_auth, $idSite);
+		$analytics = new Analytics($driver);
 		$result = $analytics->get();
 
 		$this->assertEquals($apiResponse, $result);
@@ -39,18 +36,15 @@ class AnalyticsTest extends PHPUnit_Framework_TestCase
 	{
 		$apiResponse = 'http://www.somesite.com/?val1=one&val2=two&val3=three';
 
-		$url = 'http://www.somesite.com/';
-		$token_auth = 1234;
-		$idSite = 1;
-
         $driver = $this->getMockBuilder('\Analytics\DataSources\Piwik')
+        	->disableOriginalConstructor()
             ->getMock();
 
 		$driver->expects($this->once())
 		    ->method('getUrl')
 		    ->will($this->returnValue($apiResponse));  
 
-		$analytics = new Analytics($driver, $url, $token_auth, $idSite);
+		$analytics = new Analytics($driver);
 		$result = $analytics->getUrl();
 
 		$this->assertEquals($apiResponse, $result);
@@ -87,14 +81,11 @@ class AnalyticsTest extends PHPUnit_Framework_TestCase
     */	
 	public function testIfPeriodAcceptsTheCorrectParameters($originalString, $expectedResult)
 	{
-		$url = 'http://www.somesite.com/';
-		$token_auth = 1234;
-		$idSite = 1;
-
         $driver = $this->getMockBuilder('\Analytics\DataSources\Piwik')
+        	->disableOriginalConstructor()
             ->getMock();		
 
-		$analytics = new Analytics($driver, $url, $token_auth, $idSite);
+		$analytics = new Analytics($driver);
 		$analytics->period($originalString);
 
 		$propertyValue = $this->readAttribute($analytics, "period");
@@ -126,14 +117,11 @@ class AnalyticsTest extends PHPUnit_Framework_TestCase
     */	
 	public function testIfFormatAcceptsTheCorrectParameters($originalString, $expectedResult)
 	{
-		$url = 'http://www.somesite.com/';
-		$token_auth = 1234;
-		$idSite = 1;
-
         $driver = $this->getMockBuilder('\Analytics\DataSources\Piwik')
+        	->disableOriginalConstructor()
             ->getMock();		
 
-		$analytics = new Analytics($driver, $url, $token_auth, $idSite);
+		$analytics = new Analytics($driver);
 
 		// All Caps
 		$originalString = strtoupper($originalString);

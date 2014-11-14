@@ -52,30 +52,43 @@
  */
 class Piwik implements DataSourcesInterface
 {
+	protected $url;
+	protected $token_auth;
+	protected $idSite;
+
+	/**
+	* @param string $url API url
+	* @param string $token API token
+	* @param integer $idSite API site id
+	*/
+	public function __construct($url, $token_auth, $idSite)
+	{
+		$this->url = $url;
+		$this->token_auth = $token_auth;
+		$this->idSite = $idSite;
+	}
+
 	/**
 	 * @param  array $scope
 	 * @return array $content
 	 */
 	public function get($scope)
 	{
-		$url = $scope['url'].'/?';
-		unset($scope['url']);
-
-		$request = $url . http_build_query($scope);
-
+		$url = $this->url.'/?';
+		$auth = array('token_auth' => $this->token_auth, 'idSite' => $this->idSite);
+		$query = array_merge($auth, $scope);
+		$request = $url . http_build_query($query);
 		$fetched = file_get_contents($request);
 		$content = $this->is_serialized($fetched) ? unserialize($fetched) : $fetched;
-
 		return $content;
 	}
 
 	public function getUrl($scope)
 	{
-		$url = $scope['url'].'/?';
-		unset($scope['url']);
-
-		$request = $url . http_build_query($scope);
-
+		$url = $this->url.'/?';
+		$auth = array('token_auth' => $this->token_auth, 'idSite' => $this->idSite);
+		$query = array_merge($auth, $scope);
+		$request = $url . http_build_query($query);
 		return $request;
 	}	
 

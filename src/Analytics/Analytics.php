@@ -53,9 +53,6 @@ use Analytics\DataSources\DataSourcesInterface;
  */
 abstract class Analytics
 {
-	protected $url;
-	protected $token_auth;
-	protected $idSite = 1;
 	protected $period = 'day';
 	protected $date = 'yesterday';
 	protected $format = 'PHP';
@@ -67,17 +64,11 @@ abstract class Analytics
 	 * Contructs the object with essential values
 	 *
 	 * @param object $driver		Object that will process the request
-	 * @param string $url
-	 * @param string $token_auth
-	 * @param integer $idSite
 	 * @return object $this
 	 */
-	public function __construct(DataSourcesInterface $driver, $url, $token_auth, $idSite = 1)
+	public function __construct(DataSourcesInterface $driver)
 	{
 		$this->driver = $driver;
-		$this->url = $url;
-		$this->token_auth = $token_auth;
-		$this->idSite = $idSite;
 		return $this;
 	}
 
@@ -148,9 +139,6 @@ abstract class Analytics
 	public function get($addedData=array())
 	{
 		$data = array (
-			'url'			=> $this->url,
-			'token_auth'	=> $this->token_auth,
-			'idSite'		=> $this->idSite,
 			'period'		=> $this->period,
 			'date'			=> $this->date,
 			'format'		=> $this->format,
@@ -170,9 +158,6 @@ abstract class Analytics
 	public function getUrl($addedData=array())
 	{
 		$data = array (
-			'url'			=> $this->url,
-			'token_auth'	=> $this->token_auth,
-			'idSite'		=> $this->idSite,
 			'period'		=> $this->period,
 			'date'			=> $this->date,
 			'format'		=> $this->format,
